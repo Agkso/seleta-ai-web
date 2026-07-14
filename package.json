@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "generate": "curl -s http://localhost:8081/v3/api-docs | jq '.' > swagger.json && npx openapi-typescript-codegen --input swagger.json --output ./app/api/generated --client axios && node scripts/generate-api-wrapper.js",
+    "generate": "curl -s http://localhost:8081/v3/api-docs | jq '.' > swagger.json && npx openapi-typescript-codegen --input swagger.json --output ./src/api/generated --client axios && node scripts/generate-api-wrapper.js",
     "start": "next start",
     "lint": "eslint"
   },

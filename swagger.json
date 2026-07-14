@@ -11,17 +11,17 @@
     }
   ],
   "paths": {
-    "/auth/register": {
+    "/candidates": {
       "post": {
         "tags": [
-          "auth-controller"
+          "candidate-controller"
         ],
-        "operationId": "register",
+        "operationId": "create",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterRequestDTO"
+                "$ref": "#/components/schemas/Candidate"
               }
             }
           },
@@ -33,7 +33,37 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/AuthResponseDTO"
+                  "$ref": "#/components/schemas/Candidate"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "auth-controller"
+        ],
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
                 }
               }
             }
@@ -87,7 +117,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginRequestDTO"
+                "$ref": "#/components/schemas/LoginRequest"
               }
             }
           },
@@ -99,7 +129,202 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/AuthResponseDTO"
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/processos": {
+      "post": {
+        "tags": [
+          "processo-seletivo-controller"
+        ],
+        "operationId": "criarProcesso",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessoSeletivoRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessoSeletivo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/processos/{id}/publicar": {
+      "post": {
+        "tags": [
+          "processo-seletivo-controller"
+        ],
+        "operationId": "publicar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessoSeletivo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/processos/{id}/iniciar": {
+      "post": {
+        "tags": [
+          "processo-seletivo-controller"
+        ],
+        "operationId": "iniciar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessoSeletivo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/processos/{id}/encerrar": {
+      "post": {
+        "tags": [
+          "processo-seletivo-controller"
+        ],
+        "operationId": "encerrar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessoSeletivo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/processos/{id}/cargos": {
+      "post": {
+        "tags": [
+          "processo-seletivo-controller"
+        ],
+        "operationId": "adicionarCargo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdicionarCargoRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessoCargo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/processos/{id}/cancelar": {
+      "post": {
+        "tags": [
+          "processo-seletivo-controller"
+        ],
+        "operationId": "cancelar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessoSeletivo"
                 }
               }
             }
@@ -129,11 +354,179 @@
           }
         }
       }
+    },
+    "/api/processos/{processId}/analytics/dashboard": {
+      "get": {
+        "tags": [
+          "analytics-controller"
+        ],
+        "operationId": "dashboard",
+        "parameters": [
+          {
+            "name": "processId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardAnalyticsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/processos/publicos": {
+      "get": {
+        "tags": [
+          "processo-seletivo-controller"
+        ],
+        "operationId": "listarProcessosPublicos",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProcessoSeletivo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "RegisterRequestDTO": {
+      "Candidate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "processoId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "cargoId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "Status": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "codigo": {
+            "type": "string"
+          },
+          "descricao": {
+            "type": "string"
+          },
+          "ordem": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ativo": {
+            "type": "boolean"
+          },
+          "tipoStatus": {
+            "$ref": "#/components/schemas/TipoStatus"
+          }
+        }
+      },
+      "TipoStatus": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "codigo": {
+            "type": "string"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "descricao": {
+            "type": "string"
+          },
+          "ativo": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RegisterRequest": {
         "type": "object",
         "properties": {
           "name": {
@@ -147,11 +540,11 @@
           },
           "roleId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         }
       },
-      "AuthResponseDTO": {
+      "AuthResponse": {
         "type": "object",
         "properties": {
           "token": {
@@ -162,7 +555,7 @@
           }
         }
       },
-      "LoginRequestDTO": {
+      "LoginRequest": {
         "type": "object",
         "properties": {
           "email": {
@@ -173,12 +566,157 @@
           }
         }
       },
+      "ProcessoSeletivoRequest": {
+        "type": "object",
+        "properties": {
+          "instituicaoId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "numeroEdital": {
+            "type": "string"
+          },
+          "dataInicioInscricao": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dataFimInscricao": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tipoProcesso": {
+            "type": "string",
+            "enum": [
+              "PUBLICO",
+              "UNIVERSIDADE",
+              "EMPRESA"
+            ]
+          }
+        }
+      },
+      "Instituicao": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "cnpj": {
+            "type": "string"
+          },
+          "razaoSocial": {
+            "type": "string"
+          },
+          "nomeFantasia": {
+            "type": "string"
+          }
+        }
+      },
+      "ProcessoSeletivo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "instituicao": {
+            "$ref": "#/components/schemas/Instituicao"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "numeroEdital": {
+            "type": "string"
+          },
+          "dataInicioInscricao": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dataFimInscricao": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tipoProcesso": {
+            "type": "string",
+            "enum": [
+              "PUBLICO",
+              "UNIVERSIDADE",
+              "EMPRESA"
+            ]
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          }
+        }
+      },
+      "AdicionarCargoRequest": {
+        "type": "object",
+        "properties": {
+          "titulo": {
+            "type": "string"
+          }
+        }
+      },
+      "ProcessoCargo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "processo": {
+            "$ref": "#/components/schemas/ProcessoSeletivo"
+          },
+          "titulo": {
+            "type": "string"
+          }
+        }
+      },
       "Role": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           "createdAt": {
             "type": "string",
@@ -194,6 +732,82 @@
           },
           "name": {
             "type": "string"
+          }
+        }
+      },
+      "AlertDTO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "DashboardAnalyticsResponse": {
+        "type": "object",
+        "properties": {
+          "totalInscricoes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalAprovado": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "taxaAprovacao": {
+            "type": "number",
+            "format": "double"
+          },
+          "serie": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SerieDTO"
+            }
+          },
+          "insights": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InsightDTO"
+            }
+          },
+          "alerts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AlertDTO"
+            }
+          }
+        }
+      },
+      "InsightDTO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "SerieDTO": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "inscricoes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "aprovados": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       }

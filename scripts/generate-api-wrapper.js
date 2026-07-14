@@ -5,8 +5,8 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const servicesDir = path.resolve(__dirname, "../app/api/generated/services");
-const outputFile = path.resolve(__dirname, "../app/api/client/myApi.ts");
+const servicesDir = path.resolve(__dirname, "../src/api/generated/services");
+const outputFile = path.resolve(__dirname, "../src/api/client/myApi.ts");
 
 let imports = "";
 let apiObject = {};
@@ -44,9 +44,9 @@ files.forEach((file) => {
   if (hasParams) {
     apiObject[domain].push(`
     ${methodName}: (
-      params: Parameters<typeof ${serviceName}.${methodName}>[0]
+      ...args: Parameters<typeof ${serviceName}.${methodName}>
     ): ReturnType<typeof ${serviceName}.${methodName}> =>
-      ${serviceName}.${methodName}(params)
+      ${serviceName}.${methodName}(...args)
     `);
   } else {
     apiObject[domain].push(`
