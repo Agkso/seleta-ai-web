@@ -10,6 +10,30 @@
   --color-brand-secondary: #2563eb;
   --color-brand-success: #10b981;
   --color-brand-surface: #f8fafc;
+  --animate-dropdown: dropdown-in 0.15s ease-out;
+  --animate-fade-in: fade-in 0.15s ease-out;
+}
+
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @theme inline {

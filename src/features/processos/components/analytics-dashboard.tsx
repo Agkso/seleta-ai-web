@@ -34,16 +34,15 @@ export const AnalyticsDashboard = () => {
         </Flex>
 
         <div className="w-full sm:w-72">
-          <Select value={processoId} onChange={(e) => setSelectedProcessoId(e.target.value)}>
-            <option value="" disabled>
-              Selecione um processo
-            </option>
-            {(processos ?? []).map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.titulo} · {p.numeroEdital}
-              </option>
-            ))}
-          </Select>
+          <Select
+            value={processoId}
+            onChange={setSelectedProcessoId}
+            placeholder="Selecione um processo"
+            options={(processos ?? []).map((p) => ({
+              value: String(p.id),
+              label: `${p.titulo} · ${p.numeroEdital}`,
+            }))}
+          />
         </div>
       </Flex>
 

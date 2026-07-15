@@ -30,6 +30,10 @@ export const RegisterForm = () => {
   const [roleId, setRoleId] = useState("");
 
   const availableRoles = (roles ?? []).filter((role) => REGISTRABLE_ROLES.includes(role.name ?? ""));
+  const roleOptions = availableRoles.map((role) => ({
+    value: String(role.id),
+    label: ROLE_LABELS[role.name ?? ""] ?? role.name ?? "",
+  }));
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -52,7 +56,7 @@ export const RegisterForm = () => {
       </Flex>
 
       <Flex dir="col" items="start" gap={2} className="mb-8">
-        <Text variant="subtitle" size="2xl">
+        <Text variant="subtitle" size="2xl" className="text-blue-500">
           Criar conta
         </Text>
         <Text color="muted">Leva menos de um minuto.</Text>
@@ -90,18 +94,11 @@ export const RegisterForm = () => {
           label="Você é"
           required
           value={roleId}
-          onChange={(e) => setRoleId(e.target.value)}
+          onChange={setRoleId}
           disabled={rolesLoading}
-        >
-          <option value="" disabled>
-            {rolesLoading ? "Carregando opções..." : "Selecione um perfil"}
-          </option>
-          {availableRoles.map((role) => (
-            <option key={role.id} value={role.id}>
-              {ROLE_LABELS[role.name ?? ""] ?? role.name}
-            </option>
-          ))}
-        </Select>
+          placeholder={rolesLoading ? "Carregando opções..." : "Selecione um perfil"}
+          options={roleOptions}
+        />
 
         {errorMessage && (
           <Span variant="error" size="xs" className="self-start">

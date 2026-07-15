@@ -34,12 +34,12 @@ export default function Home() {
         </Text>
         <Flex gap={4}>
           <Link href="/login">
-            <Button variant="outline" size="sm" className="rounded-full">
+            <Button variant="outline" size="md" className="rounded-full">
               Entrar
             </Button>
           </Link>
           <Link href="/register">
-            <Button variant="secondary" size="sm" className="rounded-full">
+            <Button variant="secondary" size="md" className="rounded-full">
               Cadastrar
             </Button>
           </Link>
@@ -63,7 +63,7 @@ export default function Home() {
           }}
         />
 
-        <Section variant="ghost" fullWidth className="relative z-10 py-28">
+        <Section variant="ghost" fullWidth className="relative z-10 py-28 text-white">
           <Flex dir="col" items="start" gap={6} className="max-w-3xl mx-auto text-center sm:items-center px-6">
             <Span variant="ia" size="md" className="gap-1.5">
               <Sparkles size={14} />
@@ -106,7 +106,7 @@ export default function Home() {
                   <feature.icon size={22} />
                 </div>
                 <Text variant="subtitle">{feature.title}</Text>
-                <Text size="sm" color="muted">
+                <Text size="base" color="muted">
                   {feature.description}
                 </Text>
               </Flex>
@@ -121,7 +121,7 @@ export default function Home() {
                 <Building2 size={22} />
               </div>
               <Text variant="subtitle">Sou contratante</Text>
-              <Text size="sm" color="muted">
+              <Text size="base" color="muted">
                 Publique processos, defina cargos e acompanhe métricas de inscrição e
                 aprovação em tempo real.
               </Text>
@@ -133,7 +133,7 @@ export default function Home() {
                 <Users size={22} />
               </div>
               <Text variant="subtitle">Sou prestador</Text>
-              <Text size="sm" color="muted">
+              <Text size="base" color="muted">
                 Encontre editais abertos, candidate-se e receba apoio de IA para
                 tirar dúvidas sobre cada processo.
               </Text>

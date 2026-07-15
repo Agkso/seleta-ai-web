@@ -48,7 +48,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <Span 
             variant="error" 
             size="xs" 
-            className="mt-1 self-start animate-in fade-in slide-in-from-top-1"
+            className="mt-1 self-start animate-fade-in"
           >
             {error}
           </Span>
